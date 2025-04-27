@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router'; // Note: it's 'react-router-dom', not 'react-router'
 import courses from '../../assets/data';
 import { ChevronDown } from 'lucide-react';
+import Navbar from '../Navbar/Navbar';
 
 export default function OnlineClass() {
   const [activeFilter, setActiveFilter] = useState(null);
@@ -76,6 +77,8 @@ export default function OnlineClass() {
   });
 
   return (
+    <>
+    <Navbar/>
     <div className="max-w-6xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Explore some of the top categories we have to offer</h1>
       
@@ -189,5 +192,6 @@ export default function OnlineClass() {
         ))}
       </div>
     </div>
+    </>
   );
 }

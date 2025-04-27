@@ -16,10 +16,8 @@ function HeroSection() {
                 >
                 Get Started
             </button>
-            <img src={TrustPilotReview} alt="" className='md:w-3/4 w-full mt-5'/>
-            
+            <img src={TrustPilotReview} alt="" className='md:w-3/4 w-full mt-5'/>     
         </div>
-
         <div className="right-hero-section w-1/2">
             <img src="https://images.ctfassets.net/ucy64xj66ql7/5tGVHhcNCTTUmiGTD1lDrJ/8a23423ef1958df2d1de79e068bf8ae9/Property_1_artist.png?w=1080&q=75&fm=webp" className='w-2xl' alt="" />
         </div>

@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation } from 'react-router';
 import { Search } from 'lucide-react';
 
 export default function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [navSearch, setNavSearch] = useState('/search');
+  const location = useLocation();
   
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log('Searching for:', searchQuery);
     if (searchQuery !== ""){
         setNavSearch(`/search?q=${searchQuery}`)
     }
@@ -21,7 +21,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="max-w-lg w-full mx-auto">
+    <div className={location.pathname == '/' ?"max-w-lg w-full mx-auto" : "hidden"}>
       <form onSubmit={handleSearch} className="relative">
         <input
           type="text"

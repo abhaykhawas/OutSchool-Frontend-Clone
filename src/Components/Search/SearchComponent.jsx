@@ -3,6 +3,7 @@ import { Search, ChevronDown, SlidersHorizontal, ArrowUpDown, BookmarkIcon } fro
 import courses from '../../assets/data'
 import CourseCard from './CourseCard';
 import { useSearchParams, useNavigate } from 'react-router';
+import Navbar from '../Navbar/Navbar';
 
 export default function SearchAndFilter() {
     const [data, setData] = useState([])
@@ -42,14 +43,12 @@ export default function SearchAndFilter() {
             age = age ? age.split(',').map(Number) : [];
             grade = grade ? grade.split(',').map(Number) : [];
             subject = subject ? subject.split(',').map(Number) : [];
-            console.log(q,age,grade,subject)
             let newData = filterCourses(courses, {
                 keyword: q, 
                 ages: age, 
                 grades: grade, 
                 subjects: subject
             })
-            console.log(newData)
             setData(newData)
         }
     }, [])
@@ -116,7 +115,6 @@ export default function SearchAndFilter() {
 
 
     function filterCourses(courses, { keyword, ages, grades, subjects }) {
-        console.log(keyword, ages, grades, subjects)
         return courses.filter(course => {
             const matchesKeyword = keyword
                 ? course["course-name"].toLowerCase().includes(keyword.toLowerCase()) ||
@@ -141,7 +139,6 @@ export default function SearchAndFilter() {
 
 
     function handleSearch(){
-        console.log(search, activeFilter, ageSelections, gradeSelections, subjectSelections)
         if (search == '' && ageSelections == [] && gradeSelections == [] && subjectSelections == []){
             setData(courses)
             return
@@ -161,7 +158,6 @@ export default function SearchAndFilter() {
         if (subjectSelections.length !== 0){
             newParams.set('subject', subjectSelections.toString())
         }
-        console.log(newParams.toString());
         
         navigate(`?${newParams.toString()}`);
         const dataCourse = filterCourses(courses, {
@@ -175,6 +171,7 @@ export default function SearchAndFilter() {
 
     return (
     <>
+    <Navbar/>
     <div className="bg-blue-50 p-4 w-full">
         {/* Search Bar */}
         <div className="flex items-center justify-between mb-4 max-w-full">
