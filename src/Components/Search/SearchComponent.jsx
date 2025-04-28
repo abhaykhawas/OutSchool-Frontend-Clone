@@ -173,169 +173,171 @@ export default function SearchAndFilter() {
     <>
     <Navbar/>
     <div className="bg-blue-50 p-4 w-full">
-        {/* Search Bar */}
-        <div className="flex items-center justify-between mb-4 max-w-full">
-        <div className="flex-grow relative flex items-center bg-white rounded-full shadow-sm overflow-hidden">
-            <div className="pl-4">
-            <Search size={20} className="text-gray-500" />
+        <div className='px-0 md:px-24'>
+            {/* Search Bar */}
+            <div className="flex items-center justify-between mb-4 max-w-full">
+            <div className="flex-grow relative flex items-center bg-white rounded-full shadow-sm overflow-hidden">
+                <div className="pl-4">
+                <Search size={20} className="text-gray-500" />
+                </div>
+                <input 
+                type="text" 
+                placeholder="Any topic or teacher" 
+                className="w-full py-3 px-4 focus:outline-none text-gray-700"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                />
             </div>
-            <input 
-            type="text" 
-            placeholder="Any topic or teacher" 
-            className="w-full py-3 px-4 focus:outline-none text-gray-700"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            />
-        </div>
-        <button className="ml-2 bg-[#4B01D4] text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-800 transition" onClick={handleSearch}>
-            Search
-        </button>
-        </div>
-        
-        {/* Filter Options */}
-        <div className="flex items-center flex-wrap gap-2">
-        {/* Age Filter */}
-        <div className="relative">
+            <button className="ml-2 bg-[#4B01D4] text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-800 transition" onClick={handleSearch}>
+                Search
+            </button>
+            </div>
+            
+            {/* Filter Options */}
+            <div className="flex items-center flex-wrap gap-2">
+            {/* Age Filter */}
+            <div className="relative">
+                <button 
+                className={`flex items-center px-4 py-2 rounded-full border ${
+                    ageSelections.length === 0
+                    ? (activeFilter === 'age'
+                        ? 'border-[#4B01D455] bg-[#4B01D405]'
+                        : 'border-gray-300 bg-white')
+                    : (activeFilter === 'age'
+                        ? 'border-[#4B01D455] bg-[#4B01D405]'
+                        : 'border-gray-300 bg-[#4B01D4] text-white')
+                }`}
+                
+                onClick={() => handleFilterClick('age')}
+                >
+                <span className="mr-2">Age</span>
+                <ChevronDown size={16} />
+                </button>
+                
+                {activeFilter === 'age' && (
+                <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-lg p-4 z-10 w-64">
+                    <h3 className="font-bold text-gray-800 mb-3">Learner age</h3>
+                    <div className="grid grid-cols-4 gap-2">
+                    {ages.map(age => (
+                        <div key={age} className="flex items-center">
+                        <input
+                            type="checkbox"
+                            id={`age-${age}`}
+                            checked={ageSelections.includes(age)}
+                            onChange={() => handleAgeChange(age)}
+                            className="mr-2 h-5 w-5 rounded border-gray-300"
+                        />
+                        <label htmlFor={`age-${age}`} className="text-gray-700">{age}</label>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+                )}
+            </div>
+            
+            {/* Grade Filter */}
+            <div className="relative">
+                <button 
+                className={`flex items-center px-4 py-2 rounded-full border ${
+                    gradeSelections.length === 0
+                    ? (activeFilter === 'age'
+                        ? 'border-[#4B01D455] bg-[#4B01D405]'
+                        : 'border-gray-300 bg-white')
+                    : (activeFilter === 'age'
+                        ? 'border-[#4B01D455] bg-[#4B01D405]'
+                        : 'border-gray-300 bg-[#4B01D4] text-white')
+                }`}
+                onClick={() => handleFilterClick('grade')}
+                >
+                <span className="mr-2">Grade</span>
+                <ChevronDown size={16} />
+                </button>
+                
+                {activeFilter === 'grade' && (
+                <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-lg p-4 z-10 w-64">
+                    <h3 className="font-bold text-gray-800 mb-3">Learner grade</h3>
+                    <div className="grid grid-cols-4 gap-2">
+                    {grades.map(grade => (
+                        <div key={grade} className="flex items-center">
+                        <input
+                            type="checkbox"
+                            id={`grade-${grade}`}
+                            checked={gradeSelections.includes(grade)}
+                            onChange={() => handleGradeChange(grade)}
+                            className="mr-2 h-5 w-5 rounded border-gray-300"
+                        />
+                        <label htmlFor={`grade-${grade}`} className="text-gray-700">{grade}</label>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+                )}
+            </div>
+            
+            {/* Subject Filter */}
+            <div className="relative">
+                <button 
+                className={`flex items-center px-4 py-2 rounded-full border ${
+                    subjectSelections.length === 0
+                    ? (activeFilter === 'age'
+                        ? 'border-[#4B01D455] bg-[#4B01D405]'
+                        : 'border-gray-300 bg-white')
+                    : (activeFilter === 'age'
+                        ? 'border-[#4B01D455] bg-[#4B01D405]'
+                        : 'border-gray-300 bg-[#4B01D4] text-white')
+                }`}
+                onClick={() => handleFilterClick('subject')}
+                >
+                <span className="mr-2">Subject</span>
+                <ChevronDown size={16} />
+                </button>
+                
+                {activeFilter === 'subject' && (
+                <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-lg p-4 z-10 w-64">
+                    <h3 className="font-bold text-gray-800 mb-3">Subject area</h3>
+                    <div className="flex flex-col gap-2">
+                    {subjects.map(subject => (
+                        <div key={subject} className="flex items-center">
+                        <input
+                            type="checkbox"
+                            id={`subject-${subject}`}
+                            checked={subjectSelections.includes(subject)}
+                            onChange={() => handleSubjectChange(subject)}
+                            className="mr-2 h-5 w-5 rounded border-gray-300"
+                        />
+                        <label htmlFor={`subject-${subject}`} className="text-gray-700">{subject}</label>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+                )}
+            </div>
+            
+            {/* Filter Icon */}
+            {/* <button className="px-3 py-2 rounded-full border border-gray-300 bg-white">
+                <SlidersHorizontal size={20} className="text-gray-700" />
+            </button> */}
+            
+            {/* Reset Button */}
             <button 
-            className={`flex items-center px-4 py-2 rounded-full border ${
-                ageSelections.length === 0
-                  ? (activeFilter === 'age'
-                      ? 'border-[#4B01D455] bg-[#4B01D405]'
-                      : 'border-gray-300 bg-white')
-                  : (activeFilter === 'age'
-                    ? 'border-[#4B01D455] bg-[#4B01D405]'
-                    : 'border-gray-300 bg-[#4B01D4] text-white')
-              }`}
-              
-            onClick={() => handleFilterClick('age')}
+                className="px-4 py-2 text-gray-700 hover:text-[#4B01D4]"
+                onClick={handleReset}
             >
-            <span className="mr-2">Age</span>
-            <ChevronDown size={16} />
+                Reset
             </button>
             
-            {activeFilter === 'age' && (
-            <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-lg p-4 z-10 w-64">
-                <h3 className="font-bold text-gray-800 mb-3">Learner age</h3>
-                <div className="grid grid-cols-4 gap-2">
-                {ages.map(age => (
-                    <div key={age} className="flex items-center">
-                    <input
-                        type="checkbox"
-                        id={`age-${age}`}
-                        checked={ageSelections.includes(age)}
-                        onChange={() => handleAgeChange(age)}
-                        className="mr-2 h-5 w-5 rounded border-gray-300"
-                    />
-                    <label htmlFor={`age-${age}`} className="text-gray-700">{age}</label>
-                    </div>
-                ))}
-                </div>
-            </div>
-            )}
-        </div>
-        
-        {/* Grade Filter */}
-        <div className="relative">
-            <button 
-            className={`flex items-center px-4 py-2 rounded-full border ${
-                gradeSelections.length === 0
-                  ? (activeFilter === 'age'
-                      ? 'border-[#4B01D455] bg-[#4B01D405]'
-                      : 'border-gray-300 bg-white')
-                  : (activeFilter === 'age'
-                    ? 'border-[#4B01D455] bg-[#4B01D405]'
-                    : 'border-gray-300 bg-[#4B01D4] text-white')
-              }`}
-            onClick={() => handleFilterClick('grade')}
-            >
-            <span className="mr-2">Grade</span>
-            <ChevronDown size={16} />
-            </button>
+            {/* Spacer for right-aligned buttons */}
+            {/* <div className="flex-grow"></div> */}
             
-            {activeFilter === 'grade' && (
-            <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-lg p-4 z-10 w-64">
-                <h3 className="font-bold text-gray-800 mb-3">Learner grade</h3>
-                <div className="grid grid-cols-4 gap-2">
-                {grades.map(grade => (
-                    <div key={grade} className="flex items-center">
-                    <input
-                        type="checkbox"
-                        id={`grade-${grade}`}
-                        checked={gradeSelections.includes(grade)}
-                        onChange={() => handleGradeChange(grade)}
-                        className="mr-2 h-5 w-5 rounded border-gray-300"
-                    />
-                    <label htmlFor={`grade-${grade}`} className="text-gray-700">{grade}</label>
-                    </div>
-                ))}
-                </div>
-            </div>
-            )}
-        </div>
-        
-        {/* Subject Filter */}
-        <div className="relative">
-            <button 
-            className={`flex items-center px-4 py-2 rounded-full border ${
-                subjectSelections.length === 0
-                  ? (activeFilter === 'age'
-                      ? 'border-[#4B01D455] bg-[#4B01D405]'
-                      : 'border-gray-300 bg-white')
-                  : (activeFilter === 'age'
-                    ? 'border-[#4B01D455] bg-[#4B01D405]'
-                    : 'border-gray-300 bg-[#4B01D4] text-white')
-              }`}
-            onClick={() => handleFilterClick('subject')}
-            >
-            <span className="mr-2">Subject</span>
-            <ChevronDown size={16} />
-            </button>
+            {/* Sort and Bookmark Buttons */}
+            {/* <button className="p-3 rounded-full border border-gray-300 bg-white">
+                <ArrowUpDown size={20} className="text-gray-700" />
+            </button> */}
             
-            {activeFilter === 'subject' && (
-            <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-lg p-4 z-10 w-64">
-                <h3 className="font-bold text-gray-800 mb-3">Subject area</h3>
-                <div className="flex flex-col gap-2">
-                {subjects.map(subject => (
-                    <div key={subject} className="flex items-center">
-                    <input
-                        type="checkbox"
-                        id={`subject-${subject}`}
-                        checked={subjectSelections.includes(subject)}
-                        onChange={() => handleSubjectChange(subject)}
-                        className="mr-2 h-5 w-5 rounded border-gray-300"
-                    />
-                    <label htmlFor={`subject-${subject}`} className="text-gray-700">{subject}</label>
-                    </div>
-                ))}
-                </div>
+            {/* <button className="p-3 rounded-full border border-gray-300 bg-white">
+                <BookmarkIcon size={20} className="text-gray-700" />
+            </button> */}
             </div>
-            )}
-        </div>
-        
-        {/* Filter Icon */}
-        {/* <button className="px-3 py-2 rounded-full border border-gray-300 bg-white">
-            <SlidersHorizontal size={20} className="text-gray-700" />
-        </button> */}
-        
-        {/* Reset Button */}
-        <button 
-            className="px-4 py-2 text-gray-700 hover:text-[#4B01D4]"
-            onClick={handleReset}
-        >
-            Reset
-        </button>
-        
-        {/* Spacer for right-aligned buttons */}
-        {/* <div className="flex-grow"></div> */}
-        
-        {/* Sort and Bookmark Buttons */}
-        {/* <button className="p-3 rounded-full border border-gray-300 bg-white">
-            <ArrowUpDown size={20} className="text-gray-700" />
-        </button> */}
-        
-        {/* <button className="p-3 rounded-full border border-gray-300 bg-white">
-            <BookmarkIcon size={20} className="text-gray-700" />
-        </button> */}
         </div>
     </div>
     {
